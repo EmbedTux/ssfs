@@ -22,7 +22,7 @@ jobs:
       run: cargo build --verbose
     - name: Run tests
       run: cargo test --verbose
-      
+
 # jobs:
 #   build:
 #     name: Build
@@ -63,8 +63,21 @@ jobs:
     runs-on: ubuntu-latest
     # TODO 6: ajouter la tache de trufflehog
     # https://github.com/trufflesecurity/trufflehog#octocat-trufflehog-github-action
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Secret Scanning
+      uses: trufflesecurity/trufflehog@main
+      with:
+        extra_args: --results=verified,unknown
+
+    # runs-on: ubuntu-latest
     # steps:
     # - name: Checkout code
-    # - name: Secret Scanning
+    #   uses: actions/checkout@v4
     #   with:
-    #     head: ${{ github.ref_name }}
+    #     fetch-depth: 0
+    # - name: Secret Scanning
+    #   uses: trufflesecurity/trufflehog@main
+    #   with:
+    #     extra_args: --results=verified,unknown
